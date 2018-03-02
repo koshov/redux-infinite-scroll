@@ -20,7 +20,9 @@ export default class ReduxInfiniteScroll extends React.Component {
   }
 
   _findElement() {
-    return this.props.elementIsScrollable ? ReactDOM.findDOMNode(this) : window;
+    if (this.props.scrollableElement) return this.props.scrollableElement;
+    if (this.props.elementIsScrollable) return ReactDOM.findDOMNode(this);
+    return window;
   }
 
   attachScrollListener () {
@@ -32,7 +34,7 @@ export default class ReduxInfiniteScroll extends React.Component {
   }
 
   _elScrollListener() {
-    let el = ReactDOM.findDOMNode(this);
+    let el = this.props.scrollableElement || document.getElementById('workspace')
 
     if (this.props.horizontal) {
       let leftScrollPos = el.scrollLeft;
@@ -74,7 +76,8 @@ export default class ReduxInfiniteScroll extends React.Component {
     // any data has been passed to the component
     if (this._totalItemsSize() <= 0) return;
 
-    let bottomPosition = this.props.elementIsScrollable ? this._elScrollListener() : this._windowScrollListener();
+    let scrollableEl = this.props.elementIsScrollable || this.props.scrollableElement;
+    let bottomPosition = scrollableEl ? this._elScrollListener() : this._windowScrollListener();
 
     if (bottomPosition < Number(this.props.threshold)) {
       this.detachScrollListener();
@@ -120,6 +123,7 @@ export default class ReduxInfiniteScroll extends React.Component {
 
 ReduxInfiniteScroll.propTypes = {
   elementIsScrollable: PropTypes.bool,
+  scrollableElement: PropTypes.any,
   containerHeight: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
@@ -156,6 +160,7 @@ ReduxInfiniteScroll.propTypes = {
 ReduxInfiniteScroll.defaultProps = {
   className: '',
   elementIsScrollable: true,
+  scrollableElement: null,
   containerHeight: '100%',
   threshold: 100,
   horizontal: false,
