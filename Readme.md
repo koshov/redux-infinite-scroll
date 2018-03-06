@@ -47,15 +47,15 @@ The difference is due to the `ReduxInfiniteScroll` being an ES6 module and there
 
 ## Usage
 
-In order to use it in your React app, simply import it and follow the example below.  The component expects to receive 
-child elements that it then injects into the DOM.  The `loadMore` prop expects a function that requests for more 
-items to be loaded once the container/window has reached the bottom `threshold`.  If there are no more items left to 
-be passed to the component, make sure to set the `hasMore` prop to be `false`.  **Important** If you are using 
+In order to use it in your React app, simply import it and follow the example below.  The component expects to receive
+child elements that it then injects into the DOM.  The `loadMore` prop expects a function that requests for more
+items to be loaded once the container/window has reached the bottom `threshold`.  If there are no more items left to
+be passed to the component, make sure to set the `hasMore` prop to be `false`.  **Important** If you are using
 an element as the scrollable component, rather than the window, you MUST pass a fixed height to the `containerHeight`
 prop.
 
 ##### ES6 format
- 
+
 ```javascript
 
 // MessageList.jsx
@@ -67,7 +67,7 @@ class MessageList extends Component {
   _loadMore() {
     this.props.dispatch(ChatActions.fetchMessages())
   }
-  
+
   _renderMessages() {
     return _.map(this.props.messages, (msg) => {
       return(
@@ -75,7 +75,7 @@ class MessageList extends Component {
       )
     })
   }
-  
+
   render() {
     return (
         <InfiniteScroll
@@ -124,7 +124,8 @@ function chatReducer(state=initialState, action=undefined) {
 
 | Props  	|  Type 	|  Required | Default 	| Description  	|
 |---	|---	|---	|---	|--- |
-| elementIsScrollable  	| bool  	| no |  true 	| Defines whether the div will have a fixed height and listens to the div's overflow event or instead have a non-fixed height and listen to the window scroll event
+| elementIsScrollable  	| bool  	| no |  true 	| Defines whether the div will have a fixed height and listens to the div's overflow event or instead have a non-fixed height and listen to the window scroll event.
+| scrollableElement | any   | no    | null  | Defines the container that is scrollable and should be monitored by the library.
 | containerHeight  	|  integer or string 	| no  	| '100%' | Sets an inline style on the height of the topmost div.
 | threshold | integer | no | 100 | The number of pixels from the bottom that the scroll bar must reach in order to trigger `loadMore`.
 | horizontal  	|  bool | no  |false| Whether to check for horizontal scrolling
