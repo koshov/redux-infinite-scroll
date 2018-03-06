@@ -508,7 +508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '_elScrollListener',
 	    value: function _elScrollListener() {
-	      var el = this.props.scrollableElement || document.getElementById('workspace');
+	      var el = this.props.scrollableElement || _reactDom2.default.findDOMNode(this);
 
 	      if (this.props.horizontal) {
 	        var leftScrollPos = el.scrollLeft;

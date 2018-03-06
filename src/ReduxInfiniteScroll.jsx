@@ -34,7 +34,7 @@ export default class ReduxInfiniteScroll extends React.Component {
   }
 
   _elScrollListener() {
-    let el = this.props.scrollableElement || document.getElementById('workspace')
+    let el = this.props.scrollableElement || ReactDOM.findDOMNode(this);
 
     if (this.props.horizontal) {
       let leftScrollPos = el.scrollLeft;
